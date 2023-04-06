@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.vscode/
+
+*.pth
+*.pt
+
+results/
+results
+results*
+
+./venv
+./model
+
+core-*
+
+.ipynb_checkpoints/
