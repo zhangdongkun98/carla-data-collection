@@ -1,29 +1,27 @@
+decision_frequency = 20
+control_frequency = 20
+perception_range = 50
+
+num_steps = 1000
+num_vehicles = 100
+
+### lidar transform
+lidar_z = 2.8
+
+
+def generate_argparser():
+    from carla_utils.utils import default_argparser
+    argparser = default_argparser()
+
+    argparser.add_argument('-d', dest='description', default='Nothing', help='[Method] description.')
+
+    argparser.add_argument('--seed', default=0, type=int, help='seed.')
+    argparser.add_argument('--num-episodes', default=10, type=int, help='number of episodes.')
+    argparser.add_argument('--save', action='store_true', help='save_data')
+    
+    argparser.add_argument('--evaluate', action='store_true', help='evaluate models (default: False)')
+    return argparser
 
 
 
-
-# Method Params
-IF_VEHICLE_CHANNEL = 0
-MAP_RANGE = 128
-ACTION_DIM = 2
-
-# Carla Params
-ROUTE_RANGE = 30.
-ROUTE_ARRAY_LENGTH = 40
-HISTORY_LENGTH = 5
-FEASIBLE_REGION_RANGE = 16
-PIXEL_PER_METER = MAP_RANGE / FEASIBLE_REGION_RANGE / 2 # pixel/m
-
-# Scout Params
-GOAL_INDEX = 15 # 5
-SCOUT_LENGTH = 2
-SCOUT_WIDTH = 1
-SCOUT_MAX_VEL = 1
-SCOUT_MAX_ANG_VEL = 0.2
-SCOUT_WHEEL_BASE = 0.45
-SCOUT_WHEEL_HORIZONTAL = 0.6
-FEASIBLE_REGION_RANGE_SCOUT = 8
-PIXEL_PER_METER_SCOUT = MAP_RANGE / FEASIBLE_REGION_RANGE_SCOUT / 2 # pixel/m
-HISTORY_LENGTH_SCOUT = 5
-MAX_OBJECT_NUM = 20
-
+save_path = './raw_data'

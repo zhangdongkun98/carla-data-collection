@@ -1,10 +1,13 @@
 import carla_utils as cu
 
-import numpy as np
 
 
 class Agent(cu.BaseAgent):
     dim_action = 1
+
+    def __init__(self, config, vehicle, sensors_master, global_path):
+        super().__init__(config, vehicle, sensors_master, global_path)
+        vehicle.set_autopilot(True, self.core.tm_port)
 
     def get_target(self, reference):
         return reference
@@ -15,6 +18,8 @@ class Agent(cu.BaseAgent):
     def forward(self, control):
         return control
 
+    def extend_route(self):
+        return
 
 
 
@@ -45,7 +50,17 @@ class AgentListMaster(cu.AgentListMaster):
     
 
     def perception(self, index, timestamp):
-        state = self.perp.run_step(index, timestamp, self.agents_learnable)
-        if timestamp > 0: self.perp.viz(state)
-        return state.to_tensor().unsqueeze(0)
+        obstacles = self.agents[1:] + self.obstacles
+        state = self.perp.run_step(index, timestamp, self.agents_learnable[0], obstacles)
+        return state
+
+
+    def visualize(self, state):
+        self.perp.visualize(state.bbxs, state.points)
+
+
+
+    def destroy(self):
+        super().destroy()
+        self.perp.destroy()
 

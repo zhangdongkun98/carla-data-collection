@@ -6,7 +6,9 @@ from carla_utils import carla, rl_template
 import torch
 import time
 import copy
+import os
 
+from . import params
 from . import scenarios
 from .sensors import sensors_param_list
 from .agents_master import AgentListMaster
@@ -20,11 +22,16 @@ class Env_v0(rl_template.EnvSingleAgent):
 
     sensors_params = sensors_param_list
 
-    decision_frequency = 3
-    control_frequency = 39
+    decision_frequency = params.decision_frequency
+    control_frequency = params.control_frequency
+    perception_range = params.perception_range
 
-    perception_range = 50.0
-    
+
+    def reset(self):
+        res = super().reset()
+        cu.system.mkdir(os.path.join(params.save_path, f'episode_{self.step_reset}'))
+        return res
+
 
     @torch.no_grad()
     def _step_train(self, action):
@@ -52,7 +59,7 @@ class Env_v0(rl_template.EnvSingleAgent):
         self.agents_master.run_step( action.action if isinstance(action, Data) else action )
 
         ### next_state
-        next_state = self.agents_master.perception(self.step_reset, timestamp=-1)
+        next_state = self.agents_master.perception(self.step_reset, timestamp=self.time_step)
         self.state = copy.copy(next_state)
 
         ### experience

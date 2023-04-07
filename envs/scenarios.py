@@ -1,88 +1,21 @@
-import rllib
 import carla_utils as cu
-from carla_utils import carla
+from carla_utils import carla, rl_template
+
+from .params import num_steps, num_vehicles
 
 
 
-##############################################
-############ single lane #####################
-##############################################
+class ScenarioUnstructured(rl_template.ScenarioSingleAgent):
 
+    time_tolerance = num_steps
 
-
-class ScenarioSingleLane(cu.rl_template.ScenarioSingleAgent):
-    time_tolerance = 1000
-    time_tolerance = 500
-    time_tolerance = 200
-
-    map_name = 'Town01'
-    max_velocity = 6
-    max_velocity = 8
-    num_vehicles = 25
-    num_vehicles = 75
-    obstacle_color = None
-    type_id = 'vehicle.tesla.model3'
-    obstacle_type_id = 'vehicle.*'
-    # obstacle_type_id = 'vehicle.tesla.model3'
-
-
-    def __init__(self, config):
-        super().__init__(config)
-
-        self.core.traffic_manager.global_percentage_speed_difference(80)
-        # self.core.traffic_manager.global_percentage_speed_difference(40)
-
-
-
-    def _generate_spawn_points(self):
-        spawn_points = [w.transform.location for w in self.town_map.generate_waypoints(20)]
-        print(cu.basic.prefix(self) + 'Num of spawn_points: ', len(spawn_points))
-        return spawn_points
-
-
-
-class ScenarioDebugRound(cu.rl_template.ScenarioSingleAgent):
-    time_tolerance = 1000
-    time_tolerance = 500
-    time_tolerance = 200
-
-    map_name = 'round_v0'
-    max_velocity = 6
-    max_velocity = 8
-    num_vehicles = 25
-    obstacle_color = None
-    type_id = 'vehicle.tesla.model3'
-    obstacle_type_id = 'vehicle.*'
-    # obstacle_type_id = 'vehicle.tesla.model3'
-
-
-    def __init__(self, config):
-        super().__init__(config)
-
-        self.core.traffic_manager.global_percentage_speed_difference(80)
-
-
-    def _generate_spawn_points(self):
-        if self.map_name == 'round_v0':
-            spawn_points = [w.transform.location for w in self.town_map.generate_waypoints(20)]
-            print(cu.basic.prefix(self) + 'Num of spawn_points: ', len(spawn_points))
-        else: raise NotImplementedError
-        return spawn_points
-
-
-
-
-
-class ScenarioUnstructured(cu.rl_template.ScenarioSingleAgent):
-
-    time_tolerance = 400
-
-    map_name = 'Town01'
+    # map_name = 'Town01'
+    map_name = 'Town03'
     # map_name = 'Town01_Opt'
     # max_velocity = 6
     max_velocity = 8
-    num_vehicles = 50 # 25, 35
-    num_static = 12 # 4
+    num_vehicles = num_vehicles
+    num_static = 0 # 4
     obstacle_color = (255,255,255)
     type_id = 'vehicle.tesla.model3'
     obstacle_type_id = 'vehicle.*'
@@ -96,12 +29,12 @@ class ScenarioUnstructured(cu.rl_template.ScenarioSingleAgent):
         # self.core.world.unload_map_layer(carla.MapLayer.Buildings)
 
 
-    def _generate_spawn_points(self):
-        if self.map_name == 'Town01' or self.map_name == "Town01_Opt":
-            spawn_points = [w.transform.location for w in self.town_map.generate_waypoints(20)]
-            print(cu.basic.prefix(self) + 'Num of spawn_points: ', len(spawn_points))
-        else: raise NotImplementedError
-        return spawn_points
+    # def _generate_spawn_points(self):
+    #     if self.map_name == 'Town01' or self.map_name == "Town01_Opt":
+    #         spawn_points = [w.transform.location for w in self.town_map.generate_waypoints(20)]
+    #         print(cu.basic.prefix(self) + 'Num of spawn_points: ', len(spawn_points))
+    #     else: raise NotImplementedError
+    #     return spawn_points
 
 
     @property

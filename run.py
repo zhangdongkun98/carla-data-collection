@@ -1,26 +1,5 @@
 import rldev
 import carla_utils as cu
-from carla_utils import carla
-
-import os
-import time
-import copy
-import numpy as np
-import matplotlib.pyplot as plt
-
-
-
-def generate_argparser():
-    from carla_utils.utils import default_argparser
-    argparser = default_argparser()
-
-    argparser.add_argument('-d', dest='description', default='Nothing', help='[Method] description.')
-
-    argparser.add_argument('--seed', default=0, type=int, help='seed.')
-    argparser.add_argument('--num-episodes', default=20000, type=int, help='number of episodes.')
-    
-    argparser.add_argument('--evaluate', action='store_true', help='evaluate models (default: False)')
-    return argparser
 
 
 def run_one_episode(env):
@@ -38,6 +17,7 @@ def run_one_episode(env):
 
 if __name__ == "__main__":
     config = rldev.YamlConfig()
+    from envs.params import generate_argparser
     args = generate_argparser().parse_args()
     config.update(args)
 
