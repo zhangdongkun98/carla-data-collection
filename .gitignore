@@ -15,3 +15,5 @@ results*
 core-*
 
 .ipynb_checkpoints/
+
+raw_data
