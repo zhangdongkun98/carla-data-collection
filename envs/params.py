@@ -1,12 +1,16 @@
 decision_frequency = 20
 control_frequency = 20
-perception_range = 50
+perception_range = 80
 
 num_steps = 1000
 num_vehicles = 100
 
-### lidar transform
-lidar_z = 2.8
+### lidar
+lidar_z = 2.8  ### transform
+channels = 64
+rotation_frequency = 40
+points_per_channel_each_step = 600
+points_per_second = points_per_channel_each_step * rotation_frequency * channels
 
 
 def generate_argparser():
