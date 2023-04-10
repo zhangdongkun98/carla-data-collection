@@ -7,7 +7,7 @@ import numpy as np
 from typing import List
 import open3d
 from . import params
-from .tools import save_bbx, save_pcd, Vis
+from .tools import get_vehicle_bbx_vec, save_bbx, save_pcd, Vis
 
 
 
@@ -79,20 +79,9 @@ class PerceptionSemanticLidar(object):
 class PseudoVehicle(object):
     def __init__(self, vehicle, t, bbx):
         self.attributes = vehicle.attributes
+        self.type_id = vehicle.type_id
         self.transform = t
         self.bounding_box = bbx
     def get_transform(self):
         return self.transform
-
-
-
-def get_vehicle_bbx_vec(vehicle):
-    t = vehicle.get_transform()
-    bbx = vehicle.bounding_box.extent *2
-    return np.array([
-        t.location.x, t.location.y, t.location.z - params.lidar_z + bbx.z/2,
-        np.deg2rad(t.rotation.yaw),
-        bbx.x, bbx.y, bbx.z
-    ], dtype=np.float32)
-
 

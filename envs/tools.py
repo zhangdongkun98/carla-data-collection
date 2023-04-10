@@ -68,10 +68,29 @@ class Vis(object):
 
 
 
+def get_vehicle_bbx_vec(vehicle):
+    t = vehicle.get_transform()
+    bbx = vehicle.bounding_box.extent *2
+    if vehicle.type_id == 'vehicle.kawasaki.ninja' or vehicle.type_id == 'vehicle.yamaha.yzf' or vehicle.type_id == 'vehicle.harley-davidson.low_rider':  ### motor
+        car_type = 2
+    elif vehicle.type_id == 'vehicle.gazelle.omafiets' or vehicle.type_id == 'vehicle.bh.crossbike' or vehicle.type_id == 'vehicle.diamondback.century':  ### bike
+        car_type = 3
+    else:  ### car
+        car_type = 1
+    return np.array([
+        t.location.x, t.location.y, t.location.z - params.lidar_z + bbx.z/2,
+        np.deg2rad(t.rotation.yaw),
+        bbx.x, bbx.y, bbx.z,
+        car_type,
+    ], dtype=np.float32)
+
+
+
+
 def calculate_vis_bbx3d(bbx_vec):
     translation = bbx_vec[:3]
     yaw = bbx_vec[3]
-    l, w, h = bbx_vec[4:]
+    l, w, h = bbx_vec[4:7]
 
     # Create a bounding box outline
     bounding_box = np.array([
