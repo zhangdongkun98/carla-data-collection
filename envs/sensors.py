@@ -26,15 +26,15 @@ sensors_param_list = [
         'transform': carla.Transform(carla.Location(x=2.5, z=0.7)),
     },
 
-    # {
-    #     'type_id': 'sensor.camera.rgb',
-    #     'role_name': 'view',
-    #     'image_size_x': 640,
-    #     'image_size_y': 360,
-    #     'fov': 120,
-    #     'transform':carla.Transform(carla.Location(x=0, z=2.8), carla.Rotation(pitch=-5)),
-    #     'callback': image_callback,
-    # },
+    {
+        'type_id': 'sensor.camera.rgb',
+        'role_name': 'view',
+        'image_size_x': 640,
+        'image_size_y': 360,
+        'fov': 120,
+        'transform':carla.Transform(carla.Location(x=0, z=22.8), carla.Rotation(pitch=-90, yaw=-90)),
+        'callback': image_callback,
+    },
 
     {
         'type_id': 'sensor.lidar.ray_cast_semantic',
