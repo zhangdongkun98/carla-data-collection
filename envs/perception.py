@@ -4,7 +4,6 @@ from carla_utils import carla
 
 import os
 import numpy as np
-import matplotlib.pyplot as plt
 from typing import List
 import open3d
 import cv2
@@ -60,10 +59,10 @@ class PerceptionSemanticLidar(object):
 
         image = agent.sensors_master.get_camera().data[...,:-1]
         # image = cv2.resize(image, self.dim_state.obs)
-        image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         image = image.astype(np.float32) /255
-        plt.imshow(image)
-        plt.pause(0.001)
+        # cv2.imshow('title', image)
+        # cv2.waitKey(1)
 
 
         print('time step: ', step_reset, timestamp)
