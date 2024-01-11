@@ -89,6 +89,7 @@ class PseudoVehicle(object):
     def __init__(self, vehicle, t, bbx):
         self.attributes = vehicle.attributes
         self.type_id = vehicle.type_id
+        self.id = vehicle.id
         self.transform = t
         self.bounding_box = bbx
     def get_transform(self):

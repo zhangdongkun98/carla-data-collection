@@ -17,3 +17,4 @@ core-*
 .ipynb_checkpoints/
 
 raw_data
+raw_data*

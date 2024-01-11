@@ -82,6 +82,7 @@ def get_vehicle_bbx_vec(vehicle):
         np.deg2rad(t.rotation.yaw),
         bbx.x, bbx.y, bbx.z,
         car_type,
+        vehicle.id,
     ], dtype=np.float32)
 
 
